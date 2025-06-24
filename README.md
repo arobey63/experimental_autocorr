@@ -5,6 +5,9 @@ Release in progress as of 6/2025
 
 ## Sections
 
+### Methods figures
+This code generates Fig 1 and 2 from the 'Materials & Methods' section. It can also be used to generate new temperature time series with specified thermal distributions and levels of autocorrelation. Before recreating the figures in the paper, you will need to download 'PcaudatumTPCdata.csv'.
+
 ### Forecasting extinction risk under temporal autocorrelation
 
 ### Comparing simulations to experimental results
