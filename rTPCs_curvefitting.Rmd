@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Fitting TPCs from rTPC
 
-This document's purpose is to fit TPCs for experimental cultures that survived various temperature regimes in the spring 2025 vasseur lab autocorrelation experiments.
+This document's purpose is to fit TPCs for experimental cultures that survived various temperature regimes.
 
 ```{r, libraries, message = FALSE}
 # R libraries needed
