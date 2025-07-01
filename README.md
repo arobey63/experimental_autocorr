@@ -9,7 +9,7 @@ Released 7/2025.
 This code generates Fig 1 and 2 from the 'Materials & Methods' section. It can also be used to generate new temperature time series with specified thermal distributions and levels of autocorrelation. Before recreating the figures in the paper, you will need to download 'PcaudatumTPCdata.csv'.
 
 ### Forecasting extinction risk under temporal autocorrelation ('ForecastingRisk.nb')
-This code generates Fig 4 using an SDE population dynamic model. For fast figure replication, download the requisite simulation results first (all 'SDE...m' and 'windowing...m' files).
+This code generates Fig 4 using an SDE population dynamic model. For fast figure replication, download the requisite simulation results first (all 'SDE...m' and 'windowing...m' files; windowing files are large and will need to be unzipped).
 
 ### Experimental Results and SSA Simulations ('SSAandExperiments.nb')
 This code generates Fig 5 using an SSA population dynamic model and compares simulation outcomes to experimental results. For fast replication, download the requisite simulation results first (all 'SSA2...m' files). This file additional contains the code needed to plot experimental outcomes as shown in the Supplemental Material; before recreating these figures, you will need to download 'experimentalresults.csv'.
