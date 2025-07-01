@@ -1,0 +1,96 @@
+---
+title: "AutocorrExperimentStats"
+output:
+  html_document: default
+  pdf_document: default
+date: "2025-07-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is the code for fitting a bias-reduced linear regression model to the experimental extinction data, then calculating confidence intervals, McFadden's pseudo R\^2, and comparing residual with null deviance:
+
+```{r modelfit}
+data <- read.csv("Rdata.csv")
+
+install.packages("brglm")
+library(brglm)
+
+#Model fit
+model <- brglm(formula = Extinction ~ Mu * Gamma, family = "binomial", data = data)
+summary(model)
+
+#Confidence intervals
+confint.default(model)
+
+#McFadden's pseudo R^2
+(1-model$deviance/model$null.deviance)*100
+
+#deviance comparison
+deviance(model)/df.residual(model)
+```
+
+## Including Plots
+
+This code creates Fig 5, the plot of the brglm model fit compared to experimental results:
+
+```{r plot, echo=TRUE}
+library(ggplot2)
+library(dplyr)
+
+data$Gamma <- factor(data$Gamma)
+data$Mu <- as.numeric(data$Mu)
+
+model <- glm(Extinction ~ Mu * Gamma, data = data, family = "binomial")
+
+predicted_probs <- predict(model, type = "response")
+plot_data <- data.frame(
+  Mu = data$Mu,
+  Gamma = factor(data$Gamma),
+  observed = data$Extinction,
+  predicted = predicted_probs
+)
+
+summary_data <- data %>%
+  group_by(Mu, Gamma) %>%
+  summarise(
+    prop_extinct = mean(Extinction),
+    n = n(),
+    se = sqrt(prop_extinct * (1 - prop_extinct) / n),
+    ci_lower = prop_extinct - 1.96 * se,
+    ci_upper = prop_extinct + 1.96 * se
+  ) %>%
+  ungroup()
+
+summary_data$Gamma <- factor(summary_data$Gamma)
+plot_data$Gamma <- factor(plot_data$Gamma)
+
+ggplot() +
+  geom_line(data = plot_data,
+            aes(x = Mu, y = predicted, color = Gamma, group = Gamma),
+            size = 1.2) +
+  geom_point(data = summary_data,
+             aes(x = Mu, y = prop_extinct, color = Gamma),
+             size = 3) +
+  geom_errorbar(data = summary_data,
+                aes(x = Mu, ymin = ci_lower, ymax = ci_upper, color = Gamma),
+                width = 0.2) +
+  labs(title = "Observed vs Predicted Persistence Probabilities",
+       x = "Mean Temperature",
+       y = "Probability of Persistence",
+       color = "Gamma") +
+  theme_minimal() +
+  scale_color_manual(values = c("gray50", "pink2", "firebrick3"))
+```
+
+Sample of how we ran X^2 tests (showing Table S7a: strong boundary, all treatments). To run a different test, switch in the data from the desired contingency table (tables for all computed tests found in supplemental material S5).
+
+```{r chi squared}
+data <- matrix(c(60,3,48,69),nrow=2)
+result <- chisq.test(data)
+print(result)
+```
