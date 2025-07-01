@@ -14,6 +14,9 @@ This code generates Fig 4 using an SDE population dynamic model. For fast figure
 ### Experimental Results and SSA Simulations ('SSAandExperiments.nb')
 This code generates Fig 5 using an SSA population dynamic model and compares simulation outcomes to experimental results. For fast replication, download the requisite simulation results first (all 'SSA2...m' files). This file additional contains the code needed to plot experimental outcomes as shown in the Supplemental Material; before recreating these figures, you will need to download 'experimentalresults.csv'.
 
+### TPC Fitting ('rTPCs_curvefitting.Rmd')
+This file fits TPCs to the experimental data using the 'rTPC' R package.
+
 ## References
 Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen. ["Improved Rate Model of Temperature-Dependent Development by Arthropods."](https://academic.oup.com/ee/article-abstract/24/1/68/2394752) Environmental Entomology 24(1): 68-75.
 
