@@ -20,6 +20,6 @@ Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen. ["Improved Rate Model 
 
 Robey, A.J., M.T. Kummel, and D.A. Vasseur. "Temporal autocorrelation increases temperature-driven extinction risk." In prep.
 
-Robey, A.J. and D.A. Vasseur. ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1101/2024.12.19.629491) In review.
+Robey, A.J. and D.A. Vasseur. ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1101/2024.12.19.629491) In review. [Code available here](https://github.com/arobey63/autocorrelation).
 
-Vasseur, D.A., C. Bieg, M.T. Kummel, and A.J. Robey. ["Forecasting Extinction Risk using Thermal Performance Curves and Population Dynamic Modeling."](https://doi.org/10.1101/2025.04.27.650737) In prep.
+Vasseur, D.A., C. Bieg, M.T. Kummel, and A.J. Robey. ["Forecasting Extinction Risk using Thermal Performance Curves and Population Dynamic Modeling."](https://doi.org/10.1101/2025.04.27.650737) In review. [Code available here](https://github.com/dvasseur9/Forecasting-Extinction-Risk).
