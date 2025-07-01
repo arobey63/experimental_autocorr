@@ -1,0 +1,483 @@
+---
+title: "rTPCs"
+output:
+  html_document: default
+  pdf_document: default
+date: "2024-06-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Fitting TPCs from rTPC
+
+This document's purpose is to fit TPCs for experimental cultures that survived various temperature regimes in the spring 2025 vasseur lab autocorrelation experiments.
+
+```{r, libraries, message = FALSE}
+# R libraries needed
+library(rTPC)
+library(nls.multstart)
+library(broom)
+library(tidyverse)
+
+
+```
+
+```{r, message = FALSE}
+#read in data
+tpc_data_all<-read_csv("post_experiment_tpc_alison_0525.csv")
+tpc_data_all<-rename(tpc_data_all,Temperature=`Incubation Temperature (°C)`)
+tpc_data_all<-rename(tpc_data_all,Daily_growth_rate=`PGR (r) (per day)`)
+tpc_data_all$Daily_growth_rate=as.numeric(tpc_data_all$Daily_growth_rate)
+tpc_data_all$Source<-as.factor(tpc_data_all$Source)
+```
+
+
+```{r}
+#graph data
+ggplot(tpc_data_all) +
+  geom_point( aes(x=Temperature, y=Daily_growth_rate,color=Source))+
+  labs(x = 'Temperature (ºC)',
+       y = 'Population growth rate (r, per day)',
+       title = 'P. caudatum growth rate across temperatures')
+
+```
+#Lactin2 model
+
+For this analysis we are using the lactin2 model on all 6 protist culture sources
+
+
+```{r}
+#lactin2_1995
+
+  # choose model
+  low_extend<-7
+  high_extend<-1
+  mod = "lactin2_1995"
+  message("\nFUNCTION STRUCTURE lactin2_1995:")
+lactin2_1995
+```
+
+for the source culture
+```{r}
+### culture by culture ##### 
+
+# for the source culture
+tpc_data<-tpc_data_all %>% filter(Source=="stock") %>% na.omit()
+# get start vals
+  start_vals <- get_start_vals(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # get limits
+  low_lims <- get_lower_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  upper_lims <- get_upper_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # fit model
+  fit_stock <- nls_multstart(Daily_growth_rate~lactin2_1995(temp = Temperature, 
+                                                  a, b, tmax, delta_t),
+                       data = tpc_data,
+                       iter = 500,
+                       start_lower = start_vals - 10,
+                       start_upper = start_vals + 10,
+                       lower = low_lims,
+                       upper = upper_lims,
+                       supp_errors = 'Y')
+  
+  # calculate additional traits
+  other_traits<-calc_params(fit_stock) %>%
+    # round for easy viewing
+    mutate_all(round, 2)
+  message("MODEL FIT stock:")
+fit_stock
+summary(fit_stock)
+glance(fit_stock)
+
+CI <- nlstools::confint2(fit_stock) %>%
+  data.frame() %>%
+  rename(., conf.low = X2.5.., conf.high = X97.5..)
+CI
+
+###############
+# source = W1-10
+# for the source culture
+tpc_data<-tpc_data_all %>% filter(Source=="W1-10") %>% na.omit()
+# get start vals
+  start_vals <- get_start_vals(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # get limits
+  low_lims <- get_lower_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  upper_lims <- get_upper_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # fit model
+  fit_W1_10 <- nls_multstart(Daily_growth_rate~lactin2_1995(temp = Temperature, 
+                                                  a, b, tmax, delta_t),
+                       data = tpc_data,
+                       iter = 500,
+                       start_lower = start_vals - 10,
+                       start_upper = start_vals + 10,
+                       lower = low_lims,
+                       upper = upper_lims,
+                       supp_errors = 'Y')
+  
+  # calculate additional traits
+  other_traits<-calc_params(fit_W1_10) %>%
+    # round for easy viewing
+    mutate_all(round, 2)
+  message("MODEL FIT W1-10:")
+fit_W1_10
+summary(fit_W1_10)
+glance(fit_W1_10)
+
+CI <- nlstools::confint2(fit_W1_10) %>%
+  data.frame() %>%
+  rename(., conf.low = X2.5.., conf.high = X97.5..)
+CI
+###############
+# source = W1-10
+# for the source culture
+tpc_data<-tpc_data_all %>% filter(Source=="W1-10") %>% na.omit()
+# get start vals
+  start_vals <- get_start_vals(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # get limits
+  low_lims <- get_lower_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  upper_lims <- get_upper_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # fit model
+  fit_W1_10 <- nls_multstart(Daily_growth_rate~lactin2_1995(temp = Temperature, 
+                                                  a, b, tmax, delta_t),
+                       data = tpc_data,
+                       iter = 500,
+                       start_lower = start_vals - 10,
+                       start_upper = start_vals + 10,
+                       lower = low_lims,
+                       upper = upper_lims,
+                       supp_errors = 'Y')
+  
+  # calculate additional traits
+  other_traits<-calc_params(fit_W1_10) %>%
+    # round for easy viewing
+    mutate_all(round, 2)
+  message("MODEL FIT W1-10:")
+fit_W1_10
+summary(fit_W1_10)
+glance(fit_W1_10)
+
+CI <- nlstools::confint2(fit_W1_10) %>%
+  data.frame() %>%
+  rename(., conf.low = X2.5.., conf.high = X97.5..)
+CI
+
+###############
+# source = W4-6
+# for the source culture
+tpc_data<-tpc_data_all %>% filter(Source=="W4-6") %>% na.omit()
+# get start vals
+  start_vals <- get_start_vals(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # get limits
+  low_lims <- get_lower_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  upper_lims <- get_upper_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # fit model
+  fit_W4_6 <- nls_multstart(Daily_growth_rate~lactin2_1995(temp = Temperature, 
+                                                  a, b, tmax, delta_t),
+                       data = tpc_data,
+                       iter = 500,
+                       start_lower = start_vals - 10,
+                       start_upper = start_vals + 10,
+                       lower = low_lims,
+                       upper = upper_lims,
+                       supp_errors = 'Y')
+  
+  # calculate additional traits
+  other_traits<-calc_params(fit_W4_6) %>%
+    # round for easy viewing
+    mutate_all(round, 2)
+  message("MODEL FIT W1-10:")
+fit_W4_6
+summary(fit_W4_6)
+glance(fit_W4_6)
+
+CI <- nlstools::confint2(fit_W4_6) %>%
+  data.frame() %>%
+  rename(., conf.low = X2.5.., conf.high = X97.5..)
+CI
+
+
+###############
+# source = P1-9
+# for the source culture
+tpc_data<-tpc_data_all %>% filter(Source=="P1-9") %>% na.omit()
+# get start vals
+  start_vals <- get_start_vals(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # get limits
+  low_lims <- get_lower_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  upper_lims <- get_upper_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # fit model
+  fit_P1_9 <- nls_multstart(Daily_growth_rate~lactin2_1995(temp = Temperature, 
+                                                  a, b, tmax, delta_t),
+                       data = tpc_data,
+                       iter = 500,
+                       start_lower = start_vals - 10,
+                       start_upper = start_vals + 10,
+                       lower = low_lims,
+                       upper = upper_lims,
+                       supp_errors = 'Y')
+  
+  # calculate additional traits
+  other_traits<-calc_params(fit_P1_9) %>%
+    # round for easy viewing
+    mutate_all(round, 2)
+  message("MODEL FIT W1-10:")
+fit_P1_9
+summary(fit_P1_9)
+glance(fit_P1_9)
+
+CI <- nlstools::confint2(fit_P1_9) %>%
+  data.frame() %>%
+  rename(., conf.low = X2.5.., conf.high = X97.5..)
+CI
+
+###############
+# source = P4-2
+# for the source culture
+tpc_data<-tpc_data_all %>% filter(Source=="P4-2") %>% na.omit()
+# get start vals
+  start_vals <- get_start_vals(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # get limits
+  low_lims <- get_lower_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  upper_lims <- get_upper_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # fit model
+  fit_P4_2 <- nls_multstart(Daily_growth_rate~lactin2_1995(temp = Temperature, 
+                                                  a, b, tmax, delta_t),
+                       data = tpc_data,
+                       iter = 500,
+                       start_lower = start_vals - 10,
+                       start_upper = start_vals + 10,
+                       lower = low_lims,
+                       upper = upper_lims,
+                       supp_errors = 'Y')
+  
+  # calculate additional traits
+  other_traits<-calc_params(fit_P4_2) %>%
+    # round for easy viewing
+    mutate_all(round, 2)
+  message("MODEL FIT W1-10:")
+fit_P4_2
+summary(fit_P4_2)
+glance(fit_P4_2)
+
+CI <- nlstools::confint2(fit_P4_2) %>%
+  data.frame() %>%
+  rename(., conf.low = X2.5.., conf.high = X97.5..)
+CI
+
+
+###############
+# source = B1-6
+# for the source culture
+tpc_data<-tpc_data_all %>% filter(Source=="B1-6") %>% na.omit()
+# get start vals
+  start_vals <- get_start_vals(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # get limits
+  low_lims <- get_lower_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  upper_lims <- get_upper_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # fit model
+  fit_B1_6 <- nls_multstart(Daily_growth_rate~lactin2_1995(temp = Temperature, 
+                                                  a, b, tmax, delta_t),
+                       data = tpc_data,
+                       iter = 500,
+                       start_lower = start_vals - 10,
+                       start_upper = start_vals + 10,
+                       lower = low_lims,
+                       upper = upper_lims,
+                       supp_errors = 'Y')
+  
+  # calculate additional traits
+  other_traits<-calc_params(fit_B1_6) %>%
+    # round for easy viewing
+    mutate_all(round, 2)
+  message("MODEL FIT B1-6:")
+fit_B1_6
+summary(fit_B1_6)
+glance(fit_B1_6)
+
+CI <- nlstools::confint2(fit_B1_6) %>%
+  data.frame() %>%
+  rename(., conf.low = X2.5.., conf.high = X97.5..)
+CI
+
+```
+
+```{r}
+# predict new data
+  new_data <- data.frame(Temperature = seq(min(tpc_data$Temperature)-low_extend, max(tpc_data$Temperature)+high_extend, 0.25))
+  preds <- augment(fit_stock, newdata = new_data %>% select(Temperature))
+  new_data$stock<-preds$.fitted
+  preds <- augment(fit_W1_10, newdata = new_data %>% select(Temperature))
+  new_data$`W1-10`<-preds$.fitted
+  preds <- augment(fit_W4_6, newdata = new_data %>% select(Temperature))
+  new_data$`W4-6`<-preds$.fitted
+  preds <- augment(fit_P1_9, newdata = new_data %>% select(Temperature))
+  new_data$`P1-9`<-preds$.fitted
+  preds <- augment(fit_P4_2, newdata = new_data %>% select(Temperature))
+  new_data$`P4-2`<-preds$.fitted
+  preds <- augment(fit_B1_6, newdata = new_data %>% select(Temperature))
+  new_data$`B1-6`<-preds$.fitted
+  new_data<-new_data %>% pivot_longer(c("stock","W1-10","W4-6","P1-9","P4-2","B1-6"), names_to="Source",values_to="Daily_growth_rate")
+  new_data$Source<-as.factor(new_data$Source)
+  # plot data and model fit
+  ggplot() +
+    geom_point(aes(Temperature, Daily_growth_rate,color = Source),tpc_data_all) +
+    geom_line(aes(Temperature, Daily_growth_rate,color = Source), new_data) +
+    theme_bw(base_size = 12) +
+    labs(x = 'Temperature (ºC)',
+         y = 'PGR',
+         title = 'lactin2_1995 fit')
+  
+  ggplot() +
+    geom_point(aes(Temperature, Daily_growth_rate,color = Source),tpc_data_all%>% filter(Source=="stock")) +
+    geom_line(aes(Temperature, Daily_growth_rate,color = Source), new_data %>% filter(Source=="stock")) +
+    theme_bw(base_size = 12) +
+    labs(x = 'Temperature (ºC)',
+         y = 'PGR',
+         title = 'stock lactin2_1995 fit')
+  
+    ggplot() +
+    geom_point(aes(Temperature, Daily_growth_rate,color = Source),tpc_data_all%>% filter(Source=="W1-10")) +
+    geom_line(aes(Temperature, Daily_growth_rate,color = Source), new_data %>% filter(Source=="W1-10")) +
+    theme_bw(base_size = 12) +
+    labs(x = 'Temperature (ºC)',
+         y = 'PGR',
+         title = 'W1-10 lactin2_1995 fit')
+    
+      ggplot() +
+    geom_point(aes(Temperature, Daily_growth_rate,color = Source),tpc_data_all%>% filter(Source=="W4-6")) +
+    geom_line(aes(Temperature, Daily_growth_rate,color = Source), new_data %>% filter(Source=="W4-6")) +
+    theme_bw(base_size = 12) +
+    labs(x = 'Temperature (ºC)',
+         y = 'PGR',
+         title = 'W4-6 lactin2_1995 fit')
+      
+        ggplot() +
+    geom_point(aes(Temperature, Daily_growth_rate,color = Source),tpc_data_all%>% filter(Source=="P1-9")) +
+    geom_line(aes(Temperature, Daily_growth_rate,color = Source), new_data %>% filter(Source=="P1-9")) +
+    theme_bw(base_size = 12) +
+    labs(x = 'Temperature (ºC)',
+         y = 'PGR',
+         title = 'P1_9 lactin2_1995 fit')
+        
+          ggplot() +
+    geom_point(aes(Temperature, Daily_growth_rate,color = Source),tpc_data_all%>% filter(Source=="P4-2")) +
+    geom_line(aes(Temperature, Daily_growth_rate,color = Source), new_data %>% filter(Source=="P4-2")) +
+    theme_bw(base_size = 12) +
+    labs(x = 'Temperature (ºC)',
+         y = 'PGR',
+         title = 'P4-2 lactin2_1995 fit')
+          
+    ggplot() +
+    geom_point(aes(Temperature, Daily_growth_rate,color = Source),tpc_data_all%>% filter(Source=="B1-6")) +
+    geom_line(aes(Temperature, Daily_growth_rate,color = Source), new_data %>% filter(Source=="B1-6")) +
+    theme_bw(base_size = 12) +
+    labs(x = 'Temperature (ºC)',
+         y = 'PGR',
+         title = 'B1-6 lactin2_1995 fit')
+```
+
+
+
+
+
+
+
+
+# OLD DATA for comparison 
+
+```{r, message = FALSE}
+#read in data
+tpc_data<-read_csv("TPC DATA caudatum 0617.csv")
+tpc_data<-rename(tpc_data,Temperature=`Incubation Temperature (°C)`)
+tpc_data<-rename(tpc_data,Daily_growth_rate=`PGR (r) (per day)`)
+```
+
+
+
+
+### lactin2_1995
+
+This model produces negative growth rates on both ends and looks reasonable overall--worth a look. It's not piecewise. 
+
+```{r}
+#lactin2_1995
+  
+  # choose model
+  low_extend<-7
+  high_extend<-3
+  mod = "lactin2_1995"
+  # get start vals
+  start_vals <- get_start_vals(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # get limits
+  low_lims <- get_lower_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  upper_lims <- get_upper_lims(tpc_data$Temperature, tpc_data$Daily_growth_rate, model_name = mod)
+  
+  # fit model
+  fit <- nls_multstart(Daily_growth_rate~lactin2_1995(temp = Temperature, 
+                                                  a, b, tmax, delta_t),
+                       data = tpc_data,
+                       iter = 500,
+                       start_lower = start_vals - 10,
+                       start_upper = start_vals + 10,
+                       lower = low_lims,
+                       upper = upper_lims,
+                       supp_errors = 'Y')
+  
+  # calculate additional traits
+  other_traits<-calc_params(fit) %>%
+    # round for easy viewing
+    mutate_all(round, 2)
+
+  
+  # predict new data
+  new_data <- data.frame(Temperature = seq(min(tpc_data$Temperature)-low_extend, max(tpc_data$Temperature)+high_extend, 0.25))
+  preds <- augment(fit, newdata = new_data)
+  
+  # plot data and model fit
+  ggplot(tpc_data, aes(Temperature, Daily_growth_rate)) +
+    geom_point() +
+    geom_line(aes(Temperature, .fitted), preds, col = 'blue') +
+    theme_bw(base_size = 12) +
+    labs(x = 'Temperature (ºC)',
+         y = 'PGR',
+         title = 'lactin2_1995 fit')
+```
+
+```{r echo=FALSE}
+#lactin2_1995 fit
+message("MODEL FIT lactin2_1995:")
+fit
+summary(fit)
+library(broom)
+glance(fit)
+tidy(fit)
+
+
+CI <- nlstools::confint2(fit) %>%
+  data.frame() %>%
+  rename(., conf.low = X2.5.., conf.high = X97.5..)
+CI
+
+message("\nFUNCTION STRUCTURE lactin2_1995:")
+lactin2_1995
+```
+
+
+
+ 
