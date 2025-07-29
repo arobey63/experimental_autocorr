@@ -20,7 +20,7 @@ This file fits TPCs to the experimental data using the 'rTPC' R package.
 ## References
 Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen. ["Improved Rate Model of Temperature-Dependent Development by Arthropods."](https://academic.oup.com/ee/article-abstract/24/1/68/2394752) Environmental Entomology 24(1): 68-75.
 
-Robey, A.J., M.T. Kummel, and D.A. Vasseur. "Temporal autocorrelation increases temperature-driven extinction risk." In prep.
+Robey, A.J., M.T. Kummel, and D.A. Vasseur. "Temporal autocorrelation increases temperature-driven extinction risk." In review.
 
 Robey, A.J. and D.A. Vasseur. ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1101/2024.12.19.629491) In review. ([Code available here](https://github.com/arobey63/autocorrelation))
 
