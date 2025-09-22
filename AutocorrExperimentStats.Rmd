@@ -41,11 +41,13 @@ This code creates Fig 5, the plot of the brglm model fit compared to experimenta
 ```{r plot, echo=TRUE}
 library(ggplot2)
 library(dplyr)
+install.packages("binom")
+library(binom)
 
 data$Gamma <- factor(data$Gamma)
 data$Mu <- as.numeric(data$Mu)
 
-model <- glm(Extinction ~ Mu * Gamma, data = data, family = "binomial")
+model <- brglm(Extinction ~ Mu * Gamma, data = data, family = "binomial")
 
 predicted_probs <- predict(model, type = "response")
 plot_data <- data.frame(
@@ -61,10 +63,9 @@ summary_data <- data %>%
     prop_extinct = mean(Extinction),
     n = n(),
     se = sqrt(prop_extinct * (1 - prop_extinct) / n),
-    ci_lower = prop_extinct - 1.96 * se,
-    ci_upper = prop_extinct + 1.96 * se
+    ci_lower = binom.confint(x, n , methods = "wilson")$lower,
+    ci_upper = binom.confint(x, n, methods = "wilson")$upper
   ) %>%
-  ungroup()
 
 summary_data$Gamma <- factor(summary_data$Gamma)
 plot_data$Gamma <- factor(plot_data$Gamma)
