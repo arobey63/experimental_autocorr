@@ -3,7 +3,7 @@ title: "AutocorrExperimentStats"
 output:
   html_document: default
   pdf_document: default
-date: "2025-07-01"
+date: "2025-11-24"
 ---
 
 ```{r setup, include=FALSE}
@@ -41,13 +41,11 @@ This code creates Fig 5, the plot of the brglm model fit compared to experimenta
 ```{r plot, echo=TRUE}
 library(ggplot2)
 library(dplyr)
-install.packages("binom")
-library(binom)
 
 data$Gamma <- factor(data$Gamma)
 data$Mu <- as.numeric(data$Mu)
 
-model <- brglm(Extinction ~ Mu * Gamma, data = data, family = "binomial")
+model <- glm(Extinction ~ Mu * Gamma, data = data, family = "binomial")
 
 predicted_probs <- predict(model, type = "response")
 plot_data <- data.frame(
@@ -63,9 +61,10 @@ summary_data <- data %>%
     prop_extinct = mean(Extinction),
     n = n(),
     se = sqrt(prop_extinct * (1 - prop_extinct) / n),
-    ci_lower = binom.confint(x, n , methods = "wilson")$lower,
-    ci_upper = binom.confint(x, n, methods = "wilson")$upper
+    ci_lower = prop_extinct - 1.96 * se,
+    ci_upper = prop_extinct + 1.96 * se
   ) %>%
+  ungroup()
 
 summary_data$Gamma <- factor(summary_data$Gamma)
 plot_data$Gamma <- factor(plot_data$Gamma)
@@ -94,4 +93,16 @@ Sample of how we ran X^2 tests (showing Table S7a: strong boundary, all treatmen
 data <- matrix(c(60,3,48,69),nrow=2)
 result <- chisq.test(data)
 print(result)
+```
+
+Code for conducting post-hoc pairwise comparison. The model fit is slightly adjusted here: in order to conduct this test, we needed to compare within mean temperature treatments. We thus used 'ExactMu' (the exact goal mean temperature for each treatment) for the mean temperature instead of 'Mu' (the measured mean temperature of each treatment) and treated mean temperature as a factor.
+
+```{r post-hoc pairwise}
+data <- read.csv("Rdata.csv")
+data$ExactMu <- as.factor(data$ExactMu)
+data$Gamma <- as.factor(data$Gamma)
+
+model <- brglm(formula = Extinction ~ ExactMu * Gamma, family = "binomial", data = data)
+emm <- emmeans(model, ~ Gamma | ExactMu, type = "response")
+pairs(emm, adjust = "tukey")
 ```
