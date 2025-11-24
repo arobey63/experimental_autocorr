@@ -1,7 +1,7 @@
 # Temporal autocorrelation increases temperature-driven extinction risk by clustering stressful conditions
-Environments are becoming increasingly autocorrelated as global climate change progresses, leading to the intensification of deadly events like heatwaves and droughts. Theory shows that temporally-autocorrelated environments generate a higher risk of population extinction; however, little work has been done to incorporate temporal autocorrelation into thermal performance-based projections of extinction risk. Here, we pair stochastic simulation models of population dynamics with systematically generated temperature time series to test under which conditions higher levels of autocorrelation generate greater extinction risk. We show that autocorrelation is a significant mediator of risk under stressful temperature regimes, with important ramifications for forecasting temperature-driven extinctions in ectothermic organisms.  We validate our predictions with a factorial experiment in microcosms of the single-celled protist _Paramecium caudatum_. Taken together, these results provide the foundation for predicting which species and environments face the greatest risks under increasing autocorrelation.
+Climate change affects the thermal environment in complex ways, including changing its temporal autocorrelation structure and intensifying heatwave regimes. While theory shows that higher temporal autocorrelation may exacerbate extinction risks, little work has been done to incorporate autocorrelation into thermal performance-based forecasting. Here, we pair stochastic simulation models of population dynamics with systematically generated temperature time series to determine when increasing the temporal autocorrelation of variable thermal environments generates greater extinction risks. We show that by clustering stressful conditions, increasing autocorrelation reduces the extent of warming and variability which populations with unimodal thermal tolerance can survive. We validate our predictions with a factorial experiment in protist microcosms, where we find that higher autocorrelation significantly elevates extinction risk when environments include stressful temperatures. Taken together, these results provide the foundation for predicting which species and environments face the greatest thermal risks under increasing autocorrelation.
 
-Released 7/2025.
+Released 7/2025. Updated 11/2025.
 
 ## Sections
 
@@ -17,10 +17,13 @@ This code generates Fig 5 using an SSA population dynamic model and compares sim
 ### TPC Fitting ('rTPCs_curvefitting.Rmd')
 This file fits TPCs to the experimental data using the 'rTPC' R package.
 
+### Statistics ('AutocorrExperimentStats.Rmd')
+This file computes all used statistics, including fitting experimental results to a bias-reduced linear regression model (requires brglm package), computing chi-squared tests, and conducting posthoc pairwise comparisons (requires emmeans package); described in depth in Supplement S5.
+
 ## References
 Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen. ["Improved Rate Model of Temperature-Dependent Development by Arthropods."](https://academic.oup.com/ee/article-abstract/24/1/68/2394752) Environmental Entomology 24(1): 68-75.
 
-Robey, A.J., M.T. Kummel, and D.A. Vasseur. "Temporal autocorrelation increases temperature-driven extinction risk." In review.
+Robey, A.J., M.T. Kummel, and D.A. Vasseur. ["Temporal autocorrelation increases temperature-driven extinction risk."](https://doi.org/10.1101/2025.07.29.667527).
 
 Robey, A.J. and D.A. Vasseur. ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1101/2024.12.19.629491) In review. ([Code available here](https://github.com/arobey63/autocorrelation))
 
