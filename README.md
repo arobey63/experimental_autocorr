@@ -1,7 +1,7 @@
 # Temporal autocorrelation increases temperature-driven extinction risk by clustering stressful conditions
 Climate change affects the thermal environment in complex ways, including changing its temporal autocorrelation structure and intensifying heatwave regimes. While theory shows that higher temporal autocorrelation may exacerbate extinction risks, little work has been done to incorporate autocorrelation into thermal performance-based forecasting. Here, we pair stochastic simulation models of population dynamics with systematically generated temperature time series to determine when increasing the temporal autocorrelation of variable thermal environments generates greater extinction risks. We show that by clustering stressful conditions, increasing autocorrelation reduces the extent of warming and variability which populations with unimodal thermal tolerance can survive. We validate our predictions with a factorial experiment in protist microcosms, where we find that higher autocorrelation significantly elevates extinction risk when environments include stressful temperatures. Taken together, these results provide the foundation for predicting which species and environments face the greatest thermal risks under increasing autocorrelation.
 
-Released 7/2025. Updated 11/2025.
+Released 7/2025. Updated 11/2025, 3/2026.
 
 ## Sections
 
@@ -23,8 +23,8 @@ This file computes all used statistics, including fitting experimental results t
 ## References
 Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen. ["Improved Rate Model of Temperature-Dependent Development by Arthropods."](https://academic.oup.com/ee/article-abstract/24/1/68/2394752) Environmental Entomology 24(1): 68-75.
 
-Robey, A.J., M.T. Kummel, and D.A. Vasseur. ["Temporal autocorrelation increases temperature-driven extinction risk."](https://doi.org/10.1101/2025.07.29.667527).
+Robey, A.J., M.T. Kummel, and D.A. Vasseur. ["Temporal autocorrelation increases temperature-driven extinction risk by clustering stressful conditions."](https://doi.org/10.1101/2025.07.29.667527) In review.
 
-Robey, A.J. and D.A. Vasseur. ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1101/2024.12.19.629491) In review. ([Code available here](https://github.com/arobey63/autocorrelation))
+Robey, A.J. and D.A. Vasseur. ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1002/ecy.70325) Ecology 107(3): e70325. ([Code available here](https://github.com/arobey63/autocorrelation))
 
 Vasseur, D.A., C. Bieg, M.T. Kummel, and A.J. Robey. ["Forecasting Extinction Risk using Thermal Performance Curves and Population Dynamic Modeling."](https://doi.org/10.1101/2025.04.27.650737) In review. ([Code available here](https://github.com/dvasseur9/Forecasting-Extinction-Risk))
