@@ -6,16 +6,16 @@ Released 7/2025. Updated 11/2025, 3/2026.
 ## Sections
 
 ### Methods figures ('MethodsFigures.nb')
-This code generates Fig 1 and 2 from the 'Materials & Methods' section. It can also be used to generate new temperature time series with specified thermal distributions and levels of autocorrelation. Before recreating the figures in the paper, you will need to download 'PcaudatumTPCdata.csv'.
+This code generates Fig 1 and 2 from the 'Materials & Methods' section. It can also be used to generate new temperature time series with specified thermal distributions and levels of autocorrelation (see also Robey et al., 2026). Before recreating the figures in the paper, you will need to download 'PcaudatumTPCdata.csv'.
 
 ### Forecasting extinction risk under temporal autocorrelation ('ForecastingRisk.nb')
-This code generates Fig 4 and S2-4 using an SDE population dynamic model. For fast figure replication, download the requisite simulation results first (all 'SDE...m' and 'windowing...m' files; windowing files are large and will need to be unzipped).
+This code generates Fig 4 and S2-4 using an SDE population dynamic model (see also Vasseur et al., 2025). For fast figure replication, download the requisite simulation results first (all 'SDE...m' and 'windowing...m' files; windowing files are large and will need to be unzipped).
 
 ### Experimental Results and SSA Simulations ('SSAandExperiments.nb')
 This code generates Fig 6 and S5 using an SSA population dynamic model and compares simulation outcomes to experimental results. For fast replication, download the requisite simulation results first (all 'SSA2...m' files). This file additional contains the code needed to plot experimental outcomes as shown in the Supplemental Material; before recreating these figures, you will need to download 'experimentalresults.csv'.
 
 ### TPC Fitting ('rTPCs_curvefitting.Rmd')
-This file fits TPCs to the experimental data using the 'rTPC' R package.
+This file fits TPCs to the experimental data to the 'lactin2' TPC model (Lactin et al., 1995) using the 'rTPC' R package (Padfield et al., 2024).
 
 ### Statistics ('AutocorrExperimentStats.Rmd')
 This file computes all used statistics, including fitting experimental results to a bias-reduced linear regression model (requires brglm package), computing chi-squared tests, and conducting posthoc pairwise comparisons (requires emmeans package); described in depth in Supplement S5.
@@ -37,10 +37,12 @@ This file contains (1) all output data from the experiment (both raw and in the 
 Code was run in R v4.4.3 (open source; '.Rmd' files) and Wolfram Mathematica 14.1.0.0 ('.nb' files). To run code, download all files and update any 'directory' lines to reflect local data storage path; output files will automatically be stored in the same location.
 
 ## References
-Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen. ["Improved Rate Model of Temperature-Dependent Development by Arthropods."](https://academic.oup.com/ee/article-abstract/24/1/68/2394752) Environmental Entomology 24(1): 68-75.
+Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen (1995). ["Improved Rate Model of Temperature-Dependent Development by Arthropods."](https://academic.oup.com/ee/article-abstract/24/1/68/2394752) Environmental Entomology 24(1): 68-75.
 
-Robey, A.J., M.T. Kummel, and D.A. Vasseur. ["Temporal autocorrelation increases temperature-driven extinction risk by clustering stressful conditions."](https://doi.org/10.1101/2025.07.29.667527) In review.
+Padfield D., H. O’Sullivan, and F. Windram (2024). rTPC: Fitting and Analysing Thermal Performance Curves. R package version 1.0.7, [https://padpadpadpad.github.io/rTPC/](https://padpadpadpad.github.io/rTPC/), [https://github.com/padpadpadpad/rTPC](https://github.com/padpadpadpad/rTPC).
 
-Robey, A.J. and D.A. Vasseur. ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1002/ecy.70325) Ecology 107(3): e70325. ([Code available here](https://github.com/arobey63/autocorrelation))
+Robey, A.J., M.T. Kummel, and D.A. Vasseur (2025). ["Temporal autocorrelation increases temperature-driven extinction risk by clustering stressful conditions."](https://doi.org/10.1101/2025.07.29.667527) In review.
 
-Vasseur, D.A., C. Bieg, M.T. Kummel, and A.J. Robey. ["Forecasting Extinction Risk using Thermal Performance Curves and Population Dynamic Modeling."](https://doi.org/10.1101/2025.04.27.650737) In review. ([Code available here](https://github.com/dvasseur9/Forecasting-Extinction-Risk))
+Robey, A.J. and D.A. Vasseur (2026). ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1002/ecy.70325) Ecology 107(3): e70325. ([Code available here](https://github.com/arobey63/autocorrelation))
+
+Vasseur, D.A., C. Bieg, M.T. Kummel, and A.J. Robey (2025). ["Forecasting Extinction Risk using Thermal Performance Curves and Population Dynamic Modeling."](https://doi.org/10.1101/2025.04.27.650737) In review. ([Code available here](https://github.com/dvasseur9/Forecasting-Extinction-Risk))
