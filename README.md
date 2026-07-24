@@ -39,12 +39,12 @@ This file contains (1) all output data from the experiment (both raw and in the 
 Code was run in R v4.4.3 (open source; '.Rmd' files) and Wolfram Mathematica 14.1.0.0 ('.nb' files). To run code, download all files and update any 'directory' lines to reflect local data storage path; output files will automatically be stored in the same location.
 
 ## References
-Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen (1995). ["Improved Rate Model of Temperature-Dependent Development by Arthropods."](https://academic.oup.com/ee/article-abstract/24/1/68/2394752) Environmental Entomology 24(1): 68-75.
+Lactin, D.J, N.J. Holliday, D.L. Johnson, and R. Craigen (1995). ["Improved Rate Model of Temperature-Dependent Development by Arthropods."](https://academic.oup.com/ee/article-abstract/24/1/68/2394752) _Environmental Entomology_ 24(1): 68-75.
 
 Padfield D., H. O’Sullivan, and F. Windram (2024). rTPC: Fitting and Analysing Thermal Performance Curves. R package version 1.0.7, [https://padpadpadpad.github.io/rTPC/](https://padpadpadpad.github.io/rTPC/), [https://github.com/padpadpadpad/rTPC](https://github.com/padpadpadpad/rTPC).
 
-Robey, A.J., M.T. Kummel, and D.A. Vasseur (2025). ["Temporal autocorrelation increases temperature-driven extinction risk by clustering stressful conditions."](https://doi.org/10.1101/2025.07.29.667527) In review.
+Robey, A.J., M.T. Kummel, and D.A. Vasseur (2025). ["Temporal autocorrelation increases temperature-driven extinction risk by clustering stressful conditions."](https://doi.org/10.1111/ele.70441) _Ecology Letters_ 29(7):e70441.
 
-Robey, A.J. and D.A. Vasseur (2026). ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1002/ecy.70325) Ecology 107(3): e70325. ([Code available here](https://github.com/arobey63/autocorrelation))
+Robey, A.J. and D.A. Vasseur (2026). ["Order matters: Autocorrelation of temperature dictates extinction risk in populations with nonlinear thermal performance."](https://doi.org/10.1002/ecy.70325) _Ecology_ 107(3): e70325. ([Code available here](https://github.com/arobey63/autocorrelation))
 
 Vasseur, D.A., C. Bieg, M.T. Kummel, and A.J. Robey (2025). ["Forecasting Extinction Risk using Thermal Performance Curves and Population Dynamic Modeling."](https://doi.org/10.1101/2025.04.27.650737) In review. ([Code available here](https://github.com/dvasseur9/Forecasting-Extinction-Risk))
